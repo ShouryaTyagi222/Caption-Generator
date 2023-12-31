@@ -23,10 +23,10 @@ def model_func(max_length,vocab_size):
 
     return model
 
-def model_save(model,itr,features,tokenizer,max_length):
+def model_save(model,itr,features,tokenizer,max_length,mapping):
     model_path=os.path.join(f'checkpoint','caption_generator_model_epoch_{itr}.pkl')
     with open(model_path, 'wb') as f:
-        pkl.dump({"model":model,"epoch":itr,"features":features,"tokenizer":tokenizer,"max_length":max_length}, f, protocol=pkl.HIGHEST_PROTOCOL)
+        pkl.dump({"model":model,"epoch":itr,"features":features,"tokenizer":tokenizer,"max_length":max_length,"mapping":mapping}, f, protocol=pkl.HIGHEST_PROTOCOL)
 
 def model_load(model_path):
     with open(model_path, 'rb') as f:
@@ -36,4 +36,5 @@ def model_load(model_path):
     features=mp['features']
     tokenizer=mp['tokenizer']
     max_length=mp['max_length']
-    return model,epoch,features,tokenizer,max_length
+    mapping=mp['mapping']
+    return model,epoch,features,tokenizer,max_length,mapping
